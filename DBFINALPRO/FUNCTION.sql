@@ -1,7 +1,7 @@
 /******avaible car********/
 
 
-/*******invoice**********/
+/*******invoice**********Table joins with at least 3 tables in join/*/
 /*SELECT a.service_id, a.invoice_date, invoice_amount, rent_days, extra_odometer, customer_id, vehicle_identification_number, a.class, pickup_address, dropoff_address, discount, lpn as Lincese_Plate_Number, concat(make,' ', model,' ', year) as car_model
 FROM
 	(
@@ -41,11 +41,10 @@ JOIN
 YCL_VEHICLE B
 ON 
 A.vehicle_identification_number = B.VIN*/
-
 /*select * from ycl_invoice*/
 
 
-/********service counting*********//*
+/********service counting*********TOP-N query//*
 SELECT count(invoice_amount) as total_service, droploc_id
 FROM 
 YCL_SERVICE A
@@ -57,7 +56,7 @@ group by droploc_id
 order by 1 desc
 limit 3*/
 
-/****PICK INDIVUAL OR COPORATE CUSTOMER*****//*
+/****PICK INDIVUAL OR COPORATE CUSTOMER*****Multi-row subquery//*
 SELECT *
 FROM 
 YCL_CUSTOMER
@@ -76,4 +75,20 @@ WHERE customer_id IN
     from YCL_CORPORATE
     )*/
 
+
+/************CORRECT THE DATA REDUNTANT******** SET OPERATOR QUERY AND CORRELATED SUBQUERY/
+UPDATE YCL_SERVICE A
+SET CLASS = 	(SELECT	CLASS 
+				FROM YCL_VEHICLE B
+				WHERE A.VIN = B.VIN)*/
+
+/*******find the service out of the coupon limit******* WITH CLAUSE//*
+WITH coupondate(id, start, end) AS
+(SELECT coupon_id, start_date, end_date FROM YCL_COUPON)
+SELECT service_id, invoice_date, start, end
+FROM YCL_SERVICE A
+JOIN
+coupondate B
+ON A.coupon_id = B.id
+WHERE invoice_date NOT BETWEEN start AND end
 
