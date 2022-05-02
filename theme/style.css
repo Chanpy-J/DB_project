@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
-  --color-main: #71c6dd;
+  --color-main: #758646;
   --color-main-light: #e1f6fb;
   --color-dark: #3f4156;
   --color-dark-medium: #51546e;
-  --color-dark-light: #696d97;
+  --color-dark-light: #43455d;
   --color-light: #e5e5e5;
   --color-gray: #8b8b8b;
   --color-light-gray: #b2bdbd;
@@ -396,8 +396,11 @@ a {
 .layout > .container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  flex-direction: row-reverse;
+  
 }
+
 
 .layout--3 > .container > div:first-child {
   flex-basis: 18%;
@@ -627,7 +630,7 @@ a {
 }
 
 .roomList__header h2 {
-  text-transform: uppercase;
+  text-transform: lowercase;
   font-weight: 500;
   color: var(--color-light);
   letter-spacing: 1px;
@@ -1163,3 +1166,4 @@ a {
   color: var(--color-main);
   font-weight: 1.4rem;
 }
+

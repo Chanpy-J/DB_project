@@ -2,7 +2,7 @@
 
 
 /*******invoice**********Table joins with at least 3 tables in join/*/
-/*SELECT a.service_id, a.invoice_date, invoice_amount, rent_days, extra_odometer, customer_id, vehicle_identification_number, a.class, pickup_address, dropoff_address, discount, lpn as Lincese_Plate_Number, concat(make,' ', model,' ', year) as car_model
+SELECT a.service_id, a.invoice_date, invoice_amount, rent_days, extra_odometer, customer_id, vehicle_identification_number, a.class, pickup_address, dropoff_address, discount, lpn as Lincese_Plate_Number, concat(make,' ', model,' ', year) as car_model
 FROM
 	(
 	SELECT a.service_id, a.invoice_date, invoice_amount, (datediff(dropoff_date, pickup_date) +1) as rent_days, extra_odometer, customer_id, vehicle_identification_number, class, pickup_address, concat(B.street,' ',B.city,' ', B.zipcode ) as dropoff_address, discount
@@ -40,11 +40,11 @@ FROM
 JOIN
 YCL_VEHICLE B
 ON 
-A.vehicle_identification_number = B.VIN*/
+A.vehicle_identification_number = B.VIN
 /*select * from ycl_invoice*/
 
 
-/********service counting*********TOP-N query//*
+-- *******service counting*********TOP-N query
 SELECT count(invoice_amount) as total_service, droploc_id
 FROM 
 YCL_SERVICE A
@@ -54,9 +54,9 @@ ON
 A.service_id = B.service_id
 group by droploc_id
 order by 1 desc
-limit 3*/
+limit 3
 
-/****PICK INDIVUAL OR COPORATE CUSTOMER*****Multi-row subquery//*
+-- PICK INDIVUAL OR COPORATE CUSTOMER*****Multi-row subquery/
 SELECT *
 FROM 
 YCL_CUSTOMER
@@ -64,8 +64,8 @@ WHERE customer_id IN
 	(
 	SELECT customer_id
     from YCL_INDIVIDUAL
-    )*/
-  /*  
+    )
+
 SELECT *
 FROM 
 YCL_CUSTOMER
@@ -73,16 +73,16 @@ WHERE customer_id IN
 	(
 	SELECT customer_id
     from YCL_CORPORATE
-    )*/
+    )
 
 
-/************CORRECT THE DATA REDUNTANT******** SET OPERATOR QUERY AND CORRELATED SUBQUERY/
+-- ************CORRECT THE DATA REDUNTANT******** SET OPERATOR QUERY AND CORRELATED SUBQUERY/
 UPDATE YCL_SERVICE A
 SET CLASS = 	(SELECT	CLASS 
 				FROM YCL_VEHICLE B
-				WHERE A.VIN = B.VIN)*/
+				WHERE A.VIN = B.VIN)
 
-/*******find the service out of the coupon limit******* WITH CLAUSE//*
+-- ******find the service out of the coupon limit******* WITH CLAUSE/
 WITH coupondate(id, start, end) AS
 (SELECT coupon_id, start_date, end_date FROM YCL_COUPON)
 SELECT service_id, invoice_date, start, end

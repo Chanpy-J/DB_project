@@ -14,7 +14,7 @@
               </path>
             </svg>
           </a>
-          <h3>Create/Update Study Room</h3>
+          <h3>Enter your rental info</h3>
         </div>
       </div>
       <div class="layout__body">
@@ -22,7 +22,7 @@
           {% csrf_token %}
 
           <div class="form__group">
-            <label for="room_topic">Enter a Topic</label>
+            <label for="room_topic">Choose car class </label>
             <input required type="text" value="{{room.topic.name}}" name="topic" list="topic-list" />
             <datalist id="topic-list">
               <select id="room_topic">
@@ -35,29 +35,62 @@
 
 
           <div class="form__group">
-            <label for="room_name">Room Name</label>
+            <label for="room_name">Vehicle identification number</label>
             {{form.name}}
           </div>
 
-          <div class="form__group">
-            <label for="room_description">Room Description</label>
-            {{form.description}}
-          </div>
+          
+          <label for="start">Pickup date:</label>
+          {{form.pickupdate}}
+          <input type="date" id="start" name="trip-start"
+          value="2018-07-22"
+          min="2018-01-01" max="2018-12-31">
+          
+          <br>
+          <br>
+          <label for="start">Dropoff date:</label>
+          {{form.dropoffdate}}
+          <input type="date" id="end" name="trip-end"
+          value="2018-07-22"
+          min="2018-01-01" max="2018-12-31">
+          
+          <br>
+          <br>
+          <br>
+          
+          <label for="startod">Start odometer:</label>
+          {{form.startod}}
+          <input type="text" id="startod" name="sod">
+      
+          &nbsp&nbsp
+          <br>
+          <br>
+          <label for="endod">End odometer:</label>
+          {{form.endod}}
+          <input type="text" id="endod" name="eod">
 
-          <!-- <div class="form__group">
-            <label for="room_topic">Topic</label>
-            <input required type="text" name="topic" id="room_topic" list="topic-list" />
-            <datalist id="topic-list">
-              <select id="room_topic">
-                <option value="">Select your topic</option>
-                <option value="Python">Python</option>
-                <option value="Django">Django</option>
-              </select>
-            </datalist>
+          <br>
+          <br>
+          
+          <label for="dropoffloc">Dropoffloc:</label>
+          {{form.dropoffloc}}
+          <input type="text" id="dropoffloc" name="dloc">
+          &nbsp&nbsp
+          <br>
+          <br>
+          <label for="pickuploc">Pickuploc:</label>
+          {{form.pickuploc}}
+          <input type="text" id="pickuploc" name="ploc">
 
-          </div> -->
-
-
+          <br>
+          <br>
+         
+          <label for="start">Coupon id:</label>
+          {{form.couponid}}
+          <input type="text" id="couponid" name="cid">
+          <br>
+          <br>
+         
           <div class="form__action">
             <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
             <button class="btn btn--main" type="submit">Submit</button>

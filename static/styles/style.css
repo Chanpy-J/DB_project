@@ -1,15 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
-  --color-main: #71c6dd;
-  --color-main-light: #e1f6fb;
-  --color-dark: #3f4156;
+  --color-main: #ffffff;
+  /* checkoutbutton */
+  --color-main-light: #89a819;
+  --color-dark: #000000; 
+  /* barstrip */
   --color-dark-medium: #51546e;
-  --color-dark-light: #696d97;
+  --color-dark-light: #000000;
+  /* loginpulldownbar */
   --color-light: #e5e5e5;
-  --color-gray: #8b8b8b;
-  --color-light-gray: #b2bdbd;
-  --color-bg: #2d2d39;
+  --color-gray: #ffffff;
+  /* toprightidcolor */
+  --color-light-gray: #ffffff;
+  /* words */
+  --color-bg: #ffffff;
+  /* bkg */
   --color-success: #5dd693;
   --color-error: #fc4b0b;
 }
@@ -17,8 +23,7 @@
 /*========== base styles ==========*/
 
 * {
-  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
+  font-family:'Rammetto One', cursive;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -64,8 +69,9 @@ a {
 
 /*========== components ==========*/
 .container {
-  max-width: 120rem;
+  max-width: 1000rem;
   width: 90%;
+  line-height: 150%;
   margin: auto;
 }
 
@@ -628,7 +634,7 @@ a {
 
 .roomList__header h2 {
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 100;
   color: var(--color-light);
   letter-spacing: 1px;
 }
