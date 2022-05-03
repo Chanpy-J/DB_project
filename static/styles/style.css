@@ -4,7 +4,7 @@
   --color-main: #ffffff;
   /* checkoutbutton */
   --color-main-light: #89a819;
-  --color-dark: #000000; 
+  --color-dark: #33a9e8; 
   /* barstrip */
   --color-dark-medium: #51546e;
   --color-dark-light: #000000;
@@ -12,12 +12,12 @@
   --color-light: #e5e5e5;
   --color-gray: #ffffff;
   /* toprightidcolor */
-  --color-light-gray: #ffffff;
+  --color-light-gray: #dddddd;
   /* words */
-  --color-bg: #ffffff;
+  --color-bg: #000000;
   /* bkg */
   --color-success: #5dd693;
-  --color-error: #fc4b0b;
+  --color-error: #ffffff;
 }
 
 /*========== base styles ==========*/
