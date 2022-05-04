@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .models import Room, Topic, Message, User
+from .models import Room, Topic, Message, User, UserInsert
 from .forms import RoomForm, UserForm, MyUserCreationForm
 
 # Create your views here.
@@ -47,40 +47,70 @@ def logoutUser(request):
     return redirect('home')
 
 
+# def registerPage(request):
+#     form = MyUserCreationForm()
+
+#     if request.method == 'POST':
+#         form = MyUserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.username = user.username.lower()
+#             user.save()
+#             login(request, user)
+#             return redirect('home')
+#         else:
+#             messages.error(request, 'An error occurred during registration')
+
+#     return render(request, 'base/login_register.html', {'form': form})
+
+
 def registerPage(request):
-    form = MyUserCreationForm()
+    # form = MyUserCreationForm()
 
     if request.method == 'POST':
-        form = MyUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'An error occurred during registration')
+        if request.POST.get('name') and request.POST.get('username') and request.POST.get('email') and request.POST.get('pwd'):
+            saveRecord = UserInsert()
+            saveRecord.name = request.POST.get('name')
+            saveRecord.username = request.POST.get('username')
+            saveRecord.email = request.POST.get('email')
+            saveRecord.pwd = request.POST.get('pwd')
+            saveRecord.save()
+            messages.success(request, "register success")
+        # form = MyUserCreationForm(request.POST)
+        # if form.is_valid():
+        #     user = form.save(commit=False)
+        #     user.username = user.username.lower()
+        #     user.save()
+        #     login(request, user)
+        #     return redirect('home')
+        # else:
+        #     messages.error(request, 'An error occurred during registration')
 
-    return render(request, 'base/login_register.html', {'form': form})
+            return render(request, 'base/login_register.html')
+        else:
+            return render(request, 'base/login_register.html')
+    else:
+        return render(request, 'base/login_register.html')
 
 
 def home(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    # q = request.GET.get('q') if request.GET.get('q') != None else ''
 
-    rooms = Room.objects.filter(
-        Q(topic__name__icontains=q) |
-        Q(name__icontains=q) |
-        Q(description__icontains=q)
-    )
+    # rooms = Room.objects.filter(
+    #     Q(topic__name__icontains=q) |
+    #     Q(name__icontains=q) |
+    #     Q(description__icontains=q)
+    # )
 
-    topics = Topic.objects.all()[0:5]
-    room_count = rooms.count()
-    room_messages = Message.objects.filter(
-        Q(room__topic__name__icontains=q))[0:3]
+    # topics = Topic.objects.all()[0:5]
+    # room_count = rooms.count()
+    # room_messages = Message.objects.filter(
+    #     Q(room__topic__name__icontains=q))[0:3]
 
-    context = {'rooms': rooms, 'topics': topics,
-               'room_count': room_count, 'room_messages': room_messages}
-    return render(request, 'base/home.html', context)
+    # context = {'rooms': rooms, 'topics': topics,
+    #            'room_count': room_count, 'room_messages': room_messages}
+    return render(request, 'base/home.html')
+    # return render(request, 'base/home.html', context)
 
 
 def room(request, pk):

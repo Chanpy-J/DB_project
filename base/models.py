@@ -8,9 +8,23 @@ class User(AbstractUser):
     bio = models.TextField(null=True)
 
     avatar = models.ImageField(null=True, default="avatar.svg")
+    # class Meta:
+    #     db_table = "users"
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+class UserInsert(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    username = models.CharField(max_length=100, null=True)
+    email = models.CharField(max_length=100, null=True)
+    pwd = models.CharField(max_length=100, null=True)
+    
+    
+    class Meta:
+        db_table = "users"
+
+
 
 
 class Topic(models.Model):
