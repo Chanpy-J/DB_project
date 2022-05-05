@@ -6,7 +6,7 @@ Reference: [https://docs.python-guide.org/starting/installation/](https://docs.p
 
 #### 2. Install MySQL
 Install ```mysql-8.0.15```. Follow the steps form the below reference document based on your Operating System.
-#### 6. Load sample data into MySQL
+#### 3. Load sample data into MySQL
 ```bash
 
 # open mysql bash
@@ -17,7 +17,7 @@ mysql> source ~/path/world.sql
 mysql> exit;
 
 ```
-#### 7. Edit project settings
+#### 4. Edit project settings
 ```bash
 
 # Edit Database configurations with your MySQL configurations.
@@ -36,7 +36,7 @@ DATABASES = {
 
 # save the file
 ```
-#### 8. Run the server
+#### 5. Run the server
 ```bash
 # Make migrations
 python manage.py makemigrations
