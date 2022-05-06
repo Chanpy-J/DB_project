@@ -8,6 +8,7 @@ $DOM.on('click', '#search_submit', function() {
 	$.ajax({
 		type: 'get',
 		url: '/search?query=' + query,
+		// url: '/search' + query,
 		success: function(result) {
             console.log(result);
             $('.search_results').append(result)

@@ -82,9 +82,7 @@ class MyCustomUserManager(BaseUserManager):
         user = self.model(
             email=MyCustomUserManager.normalize_email(email_id),
             first_name=first_name,
-            last_name=last_name,
-            # sex=sex
-            # password=password
+            last_name=last_name
         )
 
         user.set_password(password)
@@ -102,10 +100,11 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True, null=True)
     # username = models.CharField(max_length=100, blank=True, null=True)
-    sex = models.CharField(max_length=100, default="female")
+    # sex = models.CharField(max_length=100, default="female")
     # gender = models.CharField(max_length=100, default="female")
     email = models.CharField(max_length=100, primary_key=True)
     password = models.CharField(max_length=100)
+    # phone_number = models.CharField(max_length=100, default="0000")
 
     objects = MyCustomUserManager()
 

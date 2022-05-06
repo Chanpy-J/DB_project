@@ -58,24 +58,24 @@ def signup(request):
                 fn=value
             if key=="last_name":
                 ln=value
-            if key=="sex":
-                s=value
+            # if key=="sex":
+            #     s=value
             if key=="email":
                 em=value
             if key=="password":
                 pwd=value
-        # try:
-        #     User.objects.create_user(email_id=em, 
-        #     first_name=fn,
-        #     last_name=ln,
-        #     sex=s
-        #     # password=pwd
-        # )
-        # except IntegrityError:
-        #     result = {"success": False, "message": "user already exists"}
-        #     return JsonResponse(result)
+        try:
+            User.objects.create_user(
+                email_id=em, 
+                first_name=fn,
+                last_name=ln,
+                password=pwd
+        )
+        except IntegrityError:
+            result = {"success": False, "message": "user already exists"}
+            return JsonResponse(result)
         
-        c="insert into users Values('{}','{}','{}','{}','{}')".format(fn,ln,s,em,pwd)
+        c="insert into users Values('{}','{}','{}','{}')".format(fn,ln,em,pwd)
         cursor.execute(c)
         m.commit()
     return render(request, "signup.html")
@@ -145,15 +145,16 @@ def c_login(request):
         if t == ():
             return render(request,'error.html')
         else:
-            # try:
-            #     user = User.objects.get(email=em, password=pwd)
-            # except ObjectDoesNotExist:
-            #     result = {"success": False, "message": "please signup"}
-            #     return JsonResponse(result)
-            # login(request, user)
-            # result = {"success": True, "message": "login succeeded"}
+            try:
+                user = User.objects.get(email=em)
+            except ObjectDoesNotExist:
+                result = {"success": False, "message": "please signup"}
+                return JsonResponse(result)
+            login(request, user)
+            result = {"success": True, "message": "login succeeded"}
+            return HttpResponseRedirect("/")
             # return JsonResponse(result)
-            return render(request, "home.html")
+            # return render(request, "home.html")
     
     return render(request, "login.html")
 
