@@ -15,4 +15,5 @@ urlpatterns = [
     #  url(r'search/', views.search, name="search"),
     url(r'country/(?P<country_name>[\w|\W]+)$', views.get_country_details, name="country_page"),
     url(r'^logout$', views.c_logout, name="logout"),
+    url(r'adminlogin/', views.adminlogin, name="adminlogin")
 ]
