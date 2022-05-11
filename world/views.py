@@ -42,6 +42,13 @@ def search(request):
     result = cursor.fetchall
     return render(request, "search_results.html", {'result' : result})
 
+@login_required
+def TopSell(request):
+    m = sql.connect(host="localhost",user="root",passwd="",database='world', port = '3307')
+    cursor = m.cursor()
+    cursor.execute("SELECT count(invoice_amount) as total_service, droploc_id FROM YCL_SERVICE A JOIN YCL_INVOICE B ON A.service_id = B.service_id group by droploc_id order by 1 desc limit 3")
+    result = cursor.fetchall
+    return render(request, "TopSell_results.html", {'result' : result})
 # def signup(request):
 #     return render(request, "signup.html")
 
@@ -214,8 +221,11 @@ def c_logout(request):
 
 @login_required
 def adminlogin(request):
-    logout(request)
     return render(request, "adminlogin.html")
+
+@login_required
+def adminhome(request):
+    return render(request, "adminhome.html")
 
 @login_required
 def get_country_details(request, country_name):
