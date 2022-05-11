@@ -72,7 +72,7 @@ class DjangoMigrations(models.Model):
         db_table = 'django_migrations'
 
 class MyCustomUserManager(BaseUserManager):
-    def create_user(self, email_id, first_name, last_name, password=None):
+    def create_user(self, username, email_id, first_name, last_name, password=None):
         """
         Creates and saves a User with the given email and password.
         """
@@ -80,6 +80,7 @@ class MyCustomUserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
 
         user = self.model(
+            username = username,
             email=MyCustomUserManager.normalize_email(email_id),
             first_name=first_name,
             last_name=last_name
@@ -97,6 +98,7 @@ class MyCustomUserManager(BaseUserManager):
         return u
 
 class User(AbstractUser):
+    username = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True, null=True)
     # username = models.CharField(max_length=100, blank=True, null=True)
@@ -109,7 +111,7 @@ class User(AbstractUser):
     objects = MyCustomUserManager()
 
 
-    USERNAME_FIELD = "email"
+    # USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name"]
 
 
