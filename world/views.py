@@ -49,6 +49,39 @@ def TopSell(request):
     cursor.execute("SELECT count(invoice_amount) as total_service, droploc_id FROM YCL_SERVICE A JOIN YCL_INVOICE B ON A.service_id = B.service_id group by droploc_id order by 1 desc limit 3")
     result = cursor.fetchall
     return render(request, "TopSell_results.html", {'result' : result})
+
+@login_required
+def icustomer(request):
+    m = sql.connect(host="localhost",user="root",passwd="",database='world', port = '3307')
+    cursor = m.cursor()
+    cursor.execute("SELECT customer_id, email, phone_number, concat(ad_city,',', ad_street,',',ad_country,',', ad_zipcode) as address FROM YCL_CUSTOMER WHERE customer_id IN    (    SELECT customer_id    from YCL_INDIVIDUAL    )")
+    result = cursor.fetchall
+    return render(request, "icustomer_results.html", {'result' : result})
+
+@login_required
+def ccustomer(request):
+    m = sql.connect(host="localhost",user="root",passwd="",database='world', port = '3307')
+    cursor = m.cursor()
+    cursor.execute("SELECT customer_id, email, phone_number, concat(ad_city,',', ad_street,',' ,ad_country,',', ad_zipcode) as address FROM YCL_CUSTOMER WHERE customer_id IN     (    SELECT customer_id    from YCL_CORPORATE    )")
+    result = cursor.fetchall
+    return render(request, "ccustomer_results.html", {'result' : result})
+
+@login_required
+def correctclass(request):
+    m = sql.connect(host="localhost",user="root",passwd="",database='world', port = '3307')
+    cursor = m.cursor()
+    cursor.execute("UPDATE YCL_SERVICE A SET CLASS =     (SELECT CLASS                 FROM YCL_VEHICLE B                WHERE A.VIN = B.VIN)")
+    cursor.execute("SELECT service_id, A.vin as vin, A.class, B.class FROM YCL_SERVICE A JOIN YCL_VEHICLE B ON A.vin = B.vin")
+    result = cursor.fetchall
+    return render(request, "correct_results.html", {'result' : result})
+
+@login_required
+def couponissue(request):
+    m = sql.connect(host="localhost",user="root",passwd="",database='world', port = '3307')
+    cursor = m.cursor()
+    cursor.execute("WITH coupondate(id, start, end) AS (SELECT coupon_id, start_date, end_date FROM YCL_COUPON) SELECT service_id, invoice_date, start, end FROM YCL_SERVICE A JOIN coupondate B ON A.coupon_id = B.id WHERE invoice_date NOT BETWEEN start AND end")
+    result = cursor.fetchall
+    return render(request, "couponissue_results.html", {'result' : result})
 # def signup(request):
 #     return render(request, "signup.html")
 
