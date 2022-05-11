@@ -87,3 +87,21 @@ $DOM.on('click', '#couponissue', function() {
 		}
 	});
 });
+
+var $DOM = $(document);
+$DOM.on('click', '#pay', function() {
+
+	console.log("pay clicked");
+
+    query = $(".pay").val();
+    $('.search_results').empty()
+	$.ajax({
+		type: 'get',
+		url: '/pay?query=' + query,
+		// url: '/search' + query,
+		success: function(result) {
+            console.log(result);
+            $('.search_results').append(result)
+		}
+	});
+});

@@ -82,6 +82,14 @@ def couponissue(request):
     cursor.execute("WITH coupondate(id, start, end) AS (SELECT coupon_id, start_date, end_date FROM YCL_COUPON) SELECT service_id, invoice_date, start, end FROM YCL_SERVICE A JOIN coupondate B ON A.coupon_id = B.id WHERE invoice_date NOT BETWEEN start AND end")
     result = cursor.fetchall
     return render(request, "couponissue_results.html", {'result' : result})
+
+@login_required
+def pay(request):
+    m = sql.connect(host="localhost",user="root",passwd="",database='world', port = '3307')
+    cursor = m.cursor()
+    cursor.execute("SELECT  * from YCL_CREDITCARD UNION SELECT * FROM YCL_GIFTCARD UNION SELECT * FROM YCL_DEBITCARD order by 2 ")
+    result = cursor.fetchall
+    return render(request, "payment_results.html", {'result' : result})
 # def signup(request):
 #     return render(request, "signup.html")
 

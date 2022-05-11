@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^ccustomer$', views.ccustomer, name="ccustomer"),
     url(r'^correctclass$', views.correctclass, name="correctclass"),
     url(r'^couponissue$', views.couponissue, name="couponissue"),
+    url(r'^pay$', views.pay, name="pay"),
     #  url(r'search/', views.search, name="search"),
     url(r'country/(?P<country_name>[\w|\W]+)$', views.get_country_details, name="country_page"),
     url(r'^logout$', views.c_logout, name="logout"),
