@@ -1,0 +1,14 @@
+<h4> Top Sell Location </h4> 
+<div class="row">
+    {% for i in result %}
+        <div class="col-sm-4 mb-5">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"> Location{{ i.1 }} </h5>
+                <p class="card-text">total service: {{ i.0 }}
+                </p>
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
